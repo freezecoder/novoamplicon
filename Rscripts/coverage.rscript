@@ -1,0 +1,15 @@
+library(ggplot2)
+library(reshape2)
+library(data.table)
+
+data=read.table("../coverage/newcoverage.tsv",sep="\t",header=TRUE)
+melted=melt(data,id.vars=c("Amplicon","Gene"))
+pointPlot=ggplot(melted,aes(Amplicon,log10(value),color=variable)) + 
+geom_point() +
+geom_smooth(aes(group=variable),se=FALSE) +
+theme(axis.text.x = element_text(angle=90,size=5)) +
+ylab("Coverage (based on full read overlap, log10 scaled")
+
+ggsave(filename="pointPlot.png",width=30)
+
+
