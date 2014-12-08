@@ -34,11 +34,13 @@ variants="$outdir/variants.vcf.gz"
 bam="$outdir/alignments.bam"
 
 mkdir -p $outdir $variantdir
+echo `date` Pipeline started on `hostname`
 
 if [ ! -e $GENOMEIDX ]; then
 	echo `date` Indexing the genome
 	novoindex $GENOMEIDX $REFGENOME 
 fi
+
 
 if [ ! -e $ampliconbed ];then
 #ManifestConversion
@@ -63,6 +65,7 @@ intersectBed -abam $bam  -b  $amplicon_noprimer  -f 0.99999 -bed -wa -wb |sort -
 #Rscript coverage.rscript
 fi
 
+echo `date` Pipeline calling variants
 #Variants calling
 mkdir -p $variantdir
 perl $code/callAmpliconVariants.pl \
@@ -75,9 +78,12 @@ perl $code/callAmpliconVariants.pl \
 #index files
 ls $variantdir/*.gz | parallel -j+0 tabix -p vcf  {}
 
+echo `date` Pipeline merging variant files 
 #merge and index with Tabix
 bcftools merge --force-samples -o $variants -Oz $variantdir/*gz
 tabix -p vcf $variants
+
+echo `date` Pipeline ended  on `hostname`
 
 
 
