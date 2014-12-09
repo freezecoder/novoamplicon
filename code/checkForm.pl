@@ -22,7 +22,7 @@ chomp $b;
 my $version = 1.1;
 
 #Set the pipeline script
-$script="/media/ephemeral/scratch/novoamplicon/code/runApp.sh";
+$script="$Bin/runApp.sh";
 #Reference genome file in fasta format e.g. hg19.fasta 
 my $genomefasta="/genomes/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa";
 my $isDemo=0;
