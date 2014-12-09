@@ -56,6 +56,8 @@ if [ ! -e $bam ];then
 	rm  $outdir/novoalign.raw.bam
 fi
 
+rm $GENOMEIDX
+
 #Coverage Analysis
 
 if [ ! -e "$outdir/novo_coverage.tsv" ];then
