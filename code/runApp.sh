@@ -35,6 +35,7 @@ bam="$outdir/alignments.bam"
 
 mkdir -p $outdir $variantdir
 echo `date` Pipeline started on `hostname`
+echo "Input: SID: $sid, Genome=$REFGENOME, fastqs=$fastqs, manifest=$manifest"
 
 if [ ! -e $GENOMEIDX ]; then
 	echo `date` Indexing the genome
@@ -50,9 +51,9 @@ fi
 #Alignment
 if [ ! -e $bam ];then
 	echo `date` Align and Sorting
-	novoalign -d $GENOMEIDX -f $fastqs --amplicons $ampliconbed -oSAM -r Random -k  2> $outdir/novoalign_log.txt |  samtools view -uS - > $outdir/novoalign.raw.sam
-	novosort $outdir/novoalign.raw.sam -o $bam -i $outdir/novoalign.raw.sam  2>log.txt 
-	rm  $outdir/novoalign.raw.sam
+	novoalign -d $GENOMEIDX -f $fastqs --amplicons $ampliconbed -oSAM -rR -k  2> $outdir/novoalign_log.txt |  samtools view -uS - > $outdir/novoalign.raw.bam
+	novosort $outdir/novoalign.raw.bam -o $bam -i  2>log.txt 
+	rm  $outdir/novoalign.raw.bam
 fi
 
 #Coverage Analysis
