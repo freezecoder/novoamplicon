@@ -73,6 +73,7 @@ my $indir="/data/inputs/";
      'test_indir=s'=>\$test_indir,
      'test_genome|test_reference=s'=>\$test_genome,
   );
+system("ls /data/input -l ");
 $outdir= "foo" if ($testjson);
 my $usage="Novoalign pipeline: Alignment & variant calling\n$0 --outdir <outdir>  --reference <genome fasta> read1.fastq.gz read2.fastq.gz\n";
 $usage.="-apps  string. Location of dependency programs [$appbase]\n";
