@@ -39,11 +39,11 @@ for index in range(numberOfPropertyItems):
 	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.textbox':
         	parameter = jsonObject['Properties']['Items'][index]['Content']
     		parameter_list.append(parameter)
-	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.radio':
-                parameter = jsonObject['Properties']['Items'][index]['Content']
+	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.manifestfile':
+                parameter = jsonObject['Properties']['Items'][index]['Name']
                 parameter_list.append(parameter)
-	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.checkbox':
-                parameter = jsonObject['Properties']['Items'][index]['Items'][0]
+	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.readDepth':
+                parameter = jsonObject['Properties']['Items'][index]['Content']
                 parameter_list.append(parameter)
 	if jsonObject['Properties']['Items'][index]['Name'] == 'Input.numeric':
                 parameter = jsonObject['Properties']['Items'][index]['Content']

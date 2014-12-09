@@ -23,7 +23,7 @@ REFGENOME="$4"
 #manifest file
 manifest="$5"
 
-outdir="$sid.outdir"
+outdir="$sid"
 variantdir="$outdir/variants"
 
 #created by App
@@ -51,7 +51,7 @@ fi
 #Alignment
 if [ ! -e $bam ];then
 	echo `date` Align and Sorting
-	novoalign -d $GENOMEIDX -f $fastqs --amplicons $ampliconbed -oSAM -rR -k  2> $outdir/novoalign_log.txt |  samtools view -uS - > $outdir/novoalign.raw.bam
+	novoalign -#40k -d $GENOMEIDX -f $fastqs --amplicons $ampliconbed -oSAM -rR -k  2> $outdir/novoalign_log.txt |  samtools view -uS - > $outdir/novoalign.raw.bam
 	novosort $outdir/novoalign.raw.bam -o $bam -i  2>log.txt 
 	rm  $outdir/novoalign.raw.bam
 fi
@@ -71,7 +71,7 @@ echo `date` Pipeline calling variants
 mkdir -p $variantdir
 perl $code/callAmpliconVariants.pl \
  -percent 0.99999 \
- -cov 50 \
+ -cov 10  \
   $amplicon_noprimer \
  -bam $bam  \
  -genome $REFGENOME \
