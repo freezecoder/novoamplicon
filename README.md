@@ -13,7 +13,8 @@ Requires Novoalign v3.02.10 or higher. Please download from www.novocraft.com an
 * Bedtools (2.15 or higher) https://github.com/arq5x/bedtools2
 * Samtools (0.1.18 or higher)
 * bcftools (latest) See http://samtools.github.io/bcftools
-* tabix /bgzip  
+* tabix and bgzip (for VCF files)
+* GNU parallel
 
 All the dependencies must be in the UNIX $PATH
 
