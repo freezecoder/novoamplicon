@@ -3,7 +3,26 @@ Amplicon Analysis for Illumina TruSeq
 
 
 
-Requires Novoalign v3.02.10 or higher 
+
+
+Dependencies
+----------------------------------------
+
+Requires Novoalign v3.02.10 or higher. Please download from www.novocraft.com and request a free license key if you're not a licensed user as yet.
+
+* Bedtools (2.15 or higher) https://github.com/arq5x/bedtools2
+* Samtools (0.1.18 or higher)
+* bcftools (latest) See http://samtools.github.io/bcftools
+* tabix and bgzip (for VCF files)
+* GNU parallel
+
+All the dependencies must be in the UNIX $PATH
+
+Protocol
+------------------------------------
+
+Run from the UNIX command line.
+
 
 Works for paired-end reads only
 Requires amplicon definitions
