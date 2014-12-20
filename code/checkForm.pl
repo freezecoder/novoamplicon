@@ -25,6 +25,10 @@ my $version = 1.1;
 $script="$Bin/runApp.sh";
 #Reference genome file in fasta format e.g. hg19.fasta 
 my $genomefasta="/genomes/Homo_sapiens/UCSC/hg19/Sequence/WholeGenomeFasta/genome.fa";
+
+#For testing only on small genomes
+system("bash /home/bin/ampliconseq/novoamplicon/code/download_seqs.sh ");
+
 my $isDemo=0;
 #Where all external programs live e.g. samtools , freebayes,etc
 my $javabin = "/home/bin/jre1.7.0_40/bin";
@@ -151,8 +155,8 @@ $libname=$samplename;
 my $addopt=" ";
 addAlignerOpts();
 
-system("mkdir -p $tmp");
-system("mkdir -p $base");
+#system("mkdir -p $tmp");
+#system("mkdir -p $base");
 novoindex($genomefasta,$index) unless -e $index;
 
 #my $novoversion=`novoalign version`;

@@ -113,12 +113,6 @@ for (my $x = 0; $x < scalar( @manifestProbesHeaders ); $x++ ) {		#Go through eac
 		$probesHeaderDLSOSequence = $x + 1;	
 	}
 }
-#print "\n\t\t\tFiltered header columns
-#\t\t\t$probesHeaderTargetID for Target ID
-#\t\t\t$probesHeaderChromosome for Chromosome
-#\t\t\t$probesHeaderStrand for Strand
-#\t\t\t$probesHeaderULSOSequence for ULSO Sequence
-#\t\t\t$probesHeaderDLSOSequence for DLSO Sequence\n\n";
 
 #####################
 
@@ -161,15 +155,7 @@ for (my $x = 0; $x < scalar( @manifestTargetsHeaders ); $x++ ) {
 		$targetsHeaderSequence = $x + 1;	
 	}
 }
-#print "\n\t\t\tFiltered header columns
-#\t\t\t$targetsHeaderTargetA for TargetA
-#\t\t\t$targetsHeaderTargetB for TargetB
-#\t\t\t$targetsHeaderChromosome for Chromosome
-#\t\t\t$targetsHeaderStartPosition for Start Position
-#\t\t\t$targetsHeaderEndPosition for End Position
-#\t\t\t$targetsHeaderProbeStrand for Probe Strand
-#\t\t\t$targetsHeaderSequence for Sequence\n\n";
-
+print  "$probesHeaderTargetID,$probesHeaderChromosome,$probesHeaderStrand,$probesHeaderULSOSequence,$probesHeaderDLSOSequence tempProbes\n";
 #Write columns needed from temp files to filtered files
 `cut -f$probesHeaderTargetID,$probesHeaderChromosome,$probesHeaderStrand,$probesHeaderULSOSequence,$probesHeaderDLSOSequence tempProbes > filteredProbes`;
 `cut -f$targetsHeaderTargetA,$targetsHeaderTargetB,$targetsHeaderTargetNumber,$targetsHeaderChromosome,$targetsHeaderStartPosition,$targetsHeaderEndPosition,$targetsHeaderProbeStrand,$targetsHeaderSequence tempTargets > filteredTargets`;
@@ -294,10 +280,10 @@ close (READFILTEREDTARGETS);
 open WRITEDUMPER,">dumper";
 print WRITEDUMPER Dumper(\%manifestBedHash);
 close (WRITEDUMPER);
-print "\tWriting to ampliconNovoalign.bed bedfile\n";
-print "\tWriting to amplicon.bed bedfile\n";
-print "\tWriting to ampliconNoPrimerRegion.bed bedfile\n";
-print "\tWriting to ampliconGeneList.text file\n";
+print "\tWriting to $outdir/ampliconNovoalign.bed bedfile\n";
+print "\tWriting to $outdir/amplicon.bed bedfile\n";
+print "\tWriting to $outdir/ampliconNoPrimerRegion.bed bedfile\n";
+print "\tWriting to $outdir/ampliconGeneList.text file\n";
 open WRITEAMPBED,">$outdir/amplicon.bed";
 open WRITEAMPNOVOBED,">$outdir/ampliconNovoalign.bed";
 open WRITENOPRIMERBED,">$outdir/ampliconNoPrimerRegion.bed";
@@ -356,7 +342,7 @@ close ( WRITENOPRIMERBED );
 close ( WRITERAWGENELIST );
 close ( WRITEGENELIST );
 #Remove redundant gene list
-`cat ampliconGeneList.txt|uniq - > uniqGeneList && mv uniqGeneList ampliconGeneList.txt`;
+`cat $outdir/ampliconGeneList.txt|uniq >$outdir/ampliconGeneList.txt`;
 
 print "Conversion finish\n\n";
 print "Amplicon Summary\n";
@@ -367,11 +353,10 @@ foreach ( sort keys %ampliconTargetNumber ) {
 	print "$_ Region(s): ".$ampliconTargetNumber{$_}{counter_key}."\n\t\t  ";
 }
 
-print "\nFile Removal process..\n";
-`rm -f tempProbes`;
+#print "\nFile Removal process..\n";
+#`rm -f tempProbes`;
 `rm -f tempTargets`;
 `rm -f filteredProbes`;
 `rm -f filteredTargets`;
 `rm -f dumper`;
 
-print "Task end\n";
